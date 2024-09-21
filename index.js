@@ -12,7 +12,7 @@ app.use(cors({
     origin: [
         "http://localhost:5173",
         "http://localhost:5174",
-        "https://furni-flex-375.web.app"
+        "https://med-ease-375.netlify.app"
     ]
 }));
 
