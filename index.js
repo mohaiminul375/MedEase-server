@@ -33,10 +33,23 @@ async function run() {
     try {
 
 
+        // collection
+        const serviceCollection = client.db('Med-Ease').collection('all-services')
+
+        // get all services
+        app.get('/services', async (req, res) => {
+            const result = await serviceCollection.find().toArray();
+            res.send(result)
+        })
 
 
-
-
+        // add a service post method
+        app.post('/services', async (req, res) => {
+            const service = req.body;
+            console.log(service)
+            const result = await serviceCollection.insertOne(service);
+            res.send(result)
+        })
 
 
 
