@@ -3,7 +3,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 const cors = require("cors");
 require("dotenv").config();
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 
 //middleware
@@ -51,6 +51,27 @@ async function run() {
             res.send(result)
         })
 
+        // path for update service
+        app.patch('/services/:id', async (req, res) => {
+            const id = req.params.id;
+            const updated_info = req.body;
+            const query = { _id: new ObjectId(id) }
+            const updateDoc = {
+                $set: {
+                    ...updated_info
+                }
+            }
+            const result = await serviceCollection.updateOne(query, updateDoc);
+            res.send(result)
+        })
+
+        // delete service
+        app.delete('/services/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await serviceCollection.deleteOne(query);
+            res.send(result);
+        })
 
 
 
